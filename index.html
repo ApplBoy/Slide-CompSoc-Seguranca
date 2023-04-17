@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title></title>
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/moon.css" id="theme" />
+    <link rel="stylesheet" href="css/vs2015.css" />
+	<link rel="stylesheet" href="css/layout.css" />
+	<link rel="stylesheet" href="plugin/customcontrols/style.css">
+
+
+
+    <script defer src="dist/fontawesome/all.min.js"></script>
+
+	<script type="text/javascript">
+		var forgetPop = true;
+		function onPopState(event) {
+			if(forgetPop){
+				forgetPop = false;
+			} else {
+				parent.postMessage(event.target.location.href, "app://obsidian.md");
+			}
+        }
+		window.onpopstate = onPopState;
+		window.onmessage = event => {
+			if(event.data == "reload"){
+				window.document.location.reload();
+			}
+			forgetPop = true;
+		}
+
+		function fitElements(){
+			const itemsToFit = document.getElementsByClassName('fitText');
+			for (const item in itemsToFit) {
+				if (Object.hasOwnProperty.call(itemsToFit, item)) {
+					var element = itemsToFit[item];
+					fitElement(element,1, 1000);
+					element.classList.remove('fitText');
+				}
+			}
+		}
+
+		function fitElement(element, start, end){
+
+			let size = (end + start) / 2;
+			element.style.fontSize = `${size}px`;
+
+			if(Math.abs(start - end) < 1){
+				while(element.scrollHeight > element.offsetHeight){
+					size--;
+					element.style.fontSize = `${size}px`;
+				}
+				return;
+			}
+
+			if(element.scrollHeight > element.offsetHeight){
+				fitElement(element, start, size);
+			} else {
+				fitElement(element, size, end);
+			}		
+		}
+
+
+		document.onreadystatechange = () => {
+			fitElements();
+			if (document.readyState === 'complete') {
+				if (window.location.href.indexOf("?export") != -1){
+					parent.postMessage(event.target.location.href, "app://obsidian.md");
+				}
+				if (window.location.href.indexOf("print-pdf") != -1){
+					let stateCheck = setInterval(() => {
+						clearInterval(stateCheck);
+						window.print();
+					}, 250);
+				}
+			}
+	};
+
+
+        </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-auto-animate="true" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+	.inlineCode {
+		background-color: moccasin;
+		color: steelblue;
+	}
+</style>
+
+
+
+# Segurança de Dados
+
+<i class="far fa-user-circle fa-pull-left"></i>
+
+Alunos: Eduardo Henrique & Saulo José.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Segurança?
+
+
+- Proteger dados digitais sensíveis.
+- Manter a integridade do sistema computacional.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-auto-animate="true" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Demonstração de Vulnerabilidade
+
+### Phishing
+
+<div style="border: 5px solid #fbb826; display: flex; min-width:5px;">
+<img src="Images/Pastedimage20230416201735.png" style="margin:0px;"></img>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-auto-animate="true" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### Phishing
+
+- Verifique remetente de e-mails 
+- Verifique se o link é legítimo antes de clicar nele. Suspeite de erros ortográficos ou variações suspeitas.
+- Verifique se o protocolo é HTTPS, 
+- Não compartilhe senhas, informações bancárias ou números de cartão de crédito, por e-mail
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-auto-animate="true" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### Phishing
+
+É uma técnica de engenharia social usada para enganar usuários de internet roubando seus dados.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Dados
+
+Alguns dados sobre a proliferação desse ataque.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# 76.000 ataques
+
+Apenas em 2022 por WhatsApp no Brasil.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# Ranking
+
+- **2.°** Dos principais alvos via Telegram.
+- **4.º** No ranking daqueles com mais tentativas de phishing é por e-mail.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Demonstração de Vulnerabilidade
+### Denial Of Service
+
+<img src="Images/Pasted image 20230416205342.png" alt="" style="object-fit: scale-down">
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Ataque DDOS
+
+Explora os limites de capacidade que o site tem de lidar com diversas solicitações, impedindo seu funcionamento correto.
+
+<div style="border:1px solid white; width: 400px;">
+<img src="Images/Pasted image 20230416205503.png" style="margin:0px;"></img>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Método  - "Redes zumbi"
+
+<img src="Images/Pasted image 20230416210352.png" alt="" style="object-fit: scale-down">
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# Dados
+
+Alguns dados sobre a proliferação do DDoS.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# 29,3 ataques /p dia
+
+Nos Estados Unidos, o setor financeiro representou uma média de 29,3 ataques por dia durante o quarto trimestre de 2022, uma quantidade três vezes e meia maior em comparação a 8,4 ataques por dia no final de 2021, ataques estes com duração media de 66 horas a 3 dias.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-auto-animate="true" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Demonstração de Vulnerabilidade
+
+### SQL Injection
+
+Simulando um ataque por Injeção de comando SQL numa página de login qualquer.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-auto-animate="true" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Demonstração de Vulnerabilidade
+
+Suponha que a base de dados da vítima faça essa busca:
+
+```sql
+SELECT * FROM users
+WHERE username = '`$inUser' AND password = '$`inPs';
+```
+</div></script></section><section ><section data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+	.Input {
+	  display: flex;
+	  flex-direction: row-reverse;
+	  border-bottom: 1px solid rgba(255, 252, 232, 0.1);
+	  padding-bottom: 3px;
+	  margin-bottom: 5px;
+	}
+	.Input input {
+	  outline: none;
+	  border: 0;
+	  color: #FFFCE8;
+	  background: transparent;
+	  font-family: "Lato", sans-serif;
+	  flex: 1 0 auto;
+	  font-size: 32px;
+	  font-weight: 300;
+	}
+	.Input input:focus ~ label {
+	  opacity: 1;
+	}
+	.Input input[type=text] ~ label::before {
+	  content: "";
+	}
+	.Input input[type=email] ~ label::before {
+	  content: "";
+	}
+	.Input input[type=password] ~ label::before {
+	  content: "";
+	}
+	
+	.Input-bttn {
+	  align-items: center;
+	  background: #268bd2;
+	  border: 0;
+	  border-radius: 3px;
+	  color: white;
+	  display: flex;
+	  font-family: "Lato", sans-serif;
+	  font-size: 32px;
+	  font-weight: 500;
+	  justify-content: center;
+	  margin-top: 20px;
+	  outline: none;
+	  padding: 10px 9px 10px 11px;
+	  text-transform: uppercase;
+	  width: 100%;
+	}
+	button .fa {
+	  font-size: 12px;
+	  margin-left: auto;
+	  position: relative;
+	  top: 1px;
+	}
+	button:hover {
+	  transform: scale(1.02);
+	}
+	button:active {
+	  transform: scale(0.99);
+	}
+	
+	#sucesso, #fracasso {
+	  position: absolute; /* or fixed, depending on your needs */
+	  top: 50px; /* adjust this value to position the div as desired */
+	  left: 50px; /* adjust this value to position the div as desired */
+	  z-index: 9999; /* adjust this value as needed to place the div above other content */
+	  color: #002b36;
+	  padding-left: 0.6em;
+	  padding-right: 0.6em;
+	}
+	
+	#sucesso {
+	  background-color: #859900;
+	  opacity: 0;
+	}
+	
+	#fracasso {
+	  background-color: #dc322f;
+	  opacity: 0;
+	}
+	
+	@keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-in forwards;
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    .fade-out {
+      animation: fadeOut 0.5s ease-in-out forwards;
+    }
+</style>
+
+<div>
+  <form id="login-form">
+    <div class="form-group Input">
+      <label for="username">👤</label>
+      <input type="text" placeholder="Saulo" id="username" name="username" required="required" class="form-inpt">
+    </div>
+    <div class="form-group Input">
+      <label for="password">🔒</label>
+      <input type="password" placeholder="Senha" id="password" name="password" required="required" class="form-inpt">
+    </div>
+    <div class="form-group Input">
+      <button class="Input-bttn" type="submit">Entrar</button>
+    </div>
+  </form>
+</div>
+
+<div id="sucesso">
+  <p>Sucesso</p>
+</div>
+
+<div id="fracasso">
+  <p>Fracasso</p>
+</div>
+</div>
+
+<aside class="notes"><p>Usuários são:</p>
+<ul>
+<li>Saulo, Senha</li>
+<li>eduardo, 123</li>
+</ul>
+</aside></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-auto-animate="true" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Prato cheio para qualquer chapéu
+
+E se usarmos isso como senha?
+```txt
+' OR 1=1;--
+```
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" data-auto-animate="true" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Prato cheio para qualquer chapéu
+```txt
+' OR 1=1;--
+```
+
+- O apóstrofo <code style="background-color:#1e1e1e;">'</code> no começo fecha a string de busca `$inPs` no SQL.
+- A expressão <code style="background-color:#1e1e1e;">OR 1=1</code> sempre retornará `TRUE` para a busca, em outras palavras, a busca retornará <color style="color:#dc322f;">verdadeira</color> em todos os usuários.
+- E o <code style="background-color:#1e1e1e;">;--</code> é o comentário do SQL após encerrar o comando, comentando então o restante da linha.
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Resultado
+
+```sql
+SELECT * FROM users
+WHERE username = 'asd' AND password = '' OR 1=1;--';
+```
+| id  | username | password |
+| --- | -------- | -------- |
+| 1   | Saulo    | Senha    |
+| 2   | Eduardo  | 123      |
+| 3   | …        | …        |
+| …   |          |          |
+
+<small>Clica aqui para ir no <a href="#/15/0">Login</a></small>
+</div></script></section></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Dados
+
+Alguns dados sobre o que foi comentado.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# 2.773.000
+## Ataques p/mês
+Só em Injeção SQL
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# U$D 15.000.000
+De gastos por ataques internos
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# 10.200 vazamentos
+
+De civis australianos em 2022 quando a empresa de telecomunicação Optus foi invadida.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# Saúde off
+
+Em 2021, vários sistemas do Ministério de Saúde no Brasil caíram por causa de um ataque do grupo <code>Lapsus\$<code>.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# Já DEU
+
+Os gastos para remediar esses problemas são aproximadamente U<text>\$</text>D100 ~ U<text>\$</text>D2.000 p/mês sem considerar o salário dos especialistas de CyberSec.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# Obrigado
+</div></script></section></div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/zoom/zoom.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/math/math.js"></script>
+	<script src="plugin/mermaid/mermaid.js"></script>
+	<script src="plugin/chart/chart.min.js"></script>
+	<script src="plugin/chart/plugin.js"></script>
+	<script src="plugin/customcontrols/plugin.js"></script>
+	<script src="plugin/elapsed-time-bar/elapsed-time-bar.js"></script>
+
+	<!--LOGIN-->
+	<script>
+      document.addEventListener('DOMContentLoaded', () => {
+      console.log('Loaded');
+      const urlParams = new URLSearchParams(window.location.search);
+      const username = urlParams.get('username');
+      const password = urlParams.get('password');
+
+      let isLogged = false
+      switch (true) {
+        case (username === 'Saulo' && password === 'Senha'):
+          // mostrar sucesso
+          isLogged = true;
+          break;
+        case (username === 'eduardo' && password === '123'):
+          // mostrar sucesso
+          isLogged = true
+          break;
+        case (/^'\s*OR\s+1\s*=\s*1\s*;\s*--$/.test(password) || /^'\s*OR\s+1\s*=\s*1\s*;\s*--$/.test(username)):
+          // mostrar sucesso
+          isLogged = true
+          break;
+        default:
+          // mostrar erro
+          isLogged = false;
+
+      }
+
+      if (isLogged) {
+        sucesso.classList.add('fade-in');
+        setTimeout(() => {
+          sucesso.classList.remove('fade-in');
+          sucesso.classList.add('fade-out');
+        }, 2500);
+      } else {
+        fracasso.classList.add('fade-in');
+        setTimeout(() => {
+          fracasso.classList.remove('fade-in');
+          fracasso.classList.add('fade-out');
+        }, 2500);
+      }
+    });
+    </script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+	  function isLight(color) {
+		let hex = color.replace('#', '');
+
+		// convert #fff => #ffffff
+		if(hex.length == 3){
+			hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
+		}
+
+		const c_r = parseInt(hex.substr(0, 2), 16);
+		const c_g = parseInt(hex.substr(2, 2), 16);
+		const c_b = parseInt(hex.substr(4, 2), 16);
+		const brightness = ((c_r * 299) + (c_g * 587) + (c_b * 114)) / 1000;
+		return brightness > 155;
+	}
+
+	var bgColor = getComputedStyle(document.documentElement).getPropertyValue('--r-background-color').trim();
+	var isLight = isLight(bgColor);
+
+	if(isLight){
+		document.body.classList.add('has-light-background');
+	} else {
+		document.body.classList.add('has-dark-background');
+	}
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath.MathJax3,
+		  RevealMermaid,
+		  RevealChart,
+		  RevealCustomControls,
+		  ElapsedTimeBar
+        ],
+
+
+    	allottedTime: 600 * 1000,
+
+		mathjax3: {
+			mathjax: 'plugin/math/mathjax/tex-mml-chtml.js',
+		},
+		markdown: {
+		  gfm: true,
+		  mangle: true,
+		  pedantic: false,
+		  smartLists: false,
+		  smartypants: false,
+		},
+
+		mermaid: {
+			theme: isLight ? 'default' : 'dark',
+		},
+
+		customcontrols: {
+			controls: [
+			]
+		},
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"width":960,"height":700,"margin":0.04,"controls":true,"progress":true,"slideNumber":false,"transition":"slide","transitionSpeed":"default"}, queryOptions);
+    </script>
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+
+  <!-- created with Advanced Slides -->
+</html>
